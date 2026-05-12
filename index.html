@@ -15,6 +15,7 @@
       --gold-2:#ecdfb6;
       --gold-line:#d8c694;
       --brand:#f15a24;
+      --panel-heading:#2563eb;
       --shadow:0 8px 24px rgba(0,0,0,.05);
       --radius:20px;
     }
@@ -41,7 +42,7 @@
     .kpi-sub{font-size:15px;font-weight:800}
     .kpi-note{margin-top:6px;color:var(--muted);font-size:14px}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-    .panel-head{padding:18px 20px 6px;font-size:18px;font-weight:900}
+    .panel-head{padding:18px 20px 6px;font-size:18px;font-weight:900;color:var(--panel-heading)}
     .list{padding:0 14px 14px}
     .row{display:grid;gap:14px;align-items:start;padding:16px 10px;border-top:1px solid #ece6dc}
     .row:first-child{border-top:none}
@@ -52,6 +53,9 @@
     .stack-item{border:1px solid #ece6dc;border-radius:16px;padding:14px 16px;min-height:92px}
     .stack-title{font-size:15px;font-weight:900;margin-bottom:6px}
     .stack-sub{font-size:14px;color:var(--muted);line-height:1.35}
+    table.data-table{width:100%;border-collapse:collapse}
+    table.data-table th, table.data-table td{padding:12px 10px;border-top:1px solid #ece6dc;text-align:left;font-size:14px}
+    table.data-table th{color:var(--muted);font-weight:800}
     .wide{margin-bottom:20px}
     @media (max-width:1100px){.goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr 1fr}}
     @media (max-width:780px){.goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr}.insight-row,.decision-row{grid-template-columns:1fr}}
@@ -72,88 +76,85 @@
   </div>
 
   <script>
-    const SHEET_FEED_URL = "https://script.google.com/macros/s/AKfycbyrE1aozXuuUYnUJQBSyGSvLJo-_S3Ib5kk1xMSQRbTLKtBrdnOCAxm77o72vupzc5sQA/exec";
+    const SHEET_FEED_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
     function safe(v){ return (v ?? "").toString(); }
 
     function goalBand(items){
-      return `<div class="goal-band">
-        ${items.map(item => `
-          <div class="goal-card">
-            <div class="goal-label">${safe(item.label)}</div>
-            <div class="goal-value">${safe(item.value)}</div>
-          </div>
-        `).join("")}
-      </div>`;
+      return `<div class="goal-band">${items.map(item => `
+        <div class="goal-card">
+          <div class="goal-label">${safe(item.label)}</div>
+          <div class="goal-value">${safe(item.value)}</div>
+        </div>`).join("")}</div>`;
     }
 
     function kpiCards(items, title){
-      return `
-        <div class="section-title">${title}</div>
-        <div class="kpi-grid">
-          ${items.map(item => `
-            <div class="card kpi">
-              <div class="kpi-label">${safe(item.label)}</div>
-              <div class="kpi-value">${safe(item.value)}</div>
-              <div>
-                <div class="kpi-sub">${safe(item.sub)}</div>
-                <div class="kpi-note">${safe(item.note)}</div>
-              </div>
+      return `<div class="section-title">${title}</div>
+        <div class="kpi-grid">${items.map(item => `
+          <div class="card kpi">
+            <div class="kpi-label">${safe(item.label)}</div>
+            <div class="kpi-value">${safe(item.value)}</div>
+            <div>
+              <div class="kpi-sub">${safe(item.sub)}</div>
+              <div class="kpi-note">${safe(item.note)}</div>
             </div>
-          `).join("")}
-        </div>
-      `;
+          </div>`).join("")}
+        </div>`;
     }
 
     function insightsPanel(items){
-      return `
-        <div class="card">
-          <div class="panel-head">What This Means</div>
-          <div class="list">
-            ${items.map(item => `
-              <div class="row insight-row">
-                <div><span class="chip">${safe(item.label)}</span></div>
-                <div>
-                  <div class="stack-title">${safe(item.title)}</div>
-                  <div class="stack-sub">${safe(item.text)}</div>
-                </div>
-              </div>
-            `).join("")}
-          </div>
+      return `<div class="card">
+        <div class="panel-head">What This Means</div>
+        <div class="list">${items.map(item => `
+          <div class="row insight-row">
+            <div><span class="chip">${safe(item.label)}</span></div>
+            <div>
+              <div class="stack-title">${safe(item.title)}</div>
+              <div class="stack-sub">${safe(item.text)}</div>
+            </div>
+          </div>`).join("")}
         </div>
-      `;
+      </div>`;
     }
 
     function decisionsPanel(items, title){
-      return `
-        <div class="card">
-          <div class="panel-head">${title}</div>
-          <div class="list">
-            ${items.map(item => `
-              <div class="row decision-row">
-                <div class="stack-title">${safe(item.text)}</div>
-                <div class="stack-sub">${safe(item.meta)}</div>
-              </div>
-            `).join("")}
-          </div>
+      return `<div class="card">
+        <div class="panel-head">${title}</div>
+        <div class="list">${items.map(item => `
+          <div class="row decision-row">
+            <div class="stack-title">${safe(item.text)}</div>
+            <div class="stack-sub">${safe(item.meta)}</div>
+          </div>`).join("")}
         </div>
-      `;
+      </div>`;
     }
 
     function stackPanel(title, items){
-      return `
-        <div class="card">
-          <div class="panel-head">${title}</div>
-          <div class="stack">
-            ${items.map(item => `
-              <div class="stack-item">
-                <div class="stack-title">${safe(item.title)}</div>
-                <div class="stack-sub">${safe(item.sub)}</div>
-              </div>
-            `).join("")}
-          </div>
+      return `<div class="card">
+        <div class="panel-head">${title}</div>
+        <div class="stack">${items.map(item => `
+          <div class="stack-item">
+            <div class="stack-title">${safe(item.title)}</div>
+            <div class="stack-sub">${safe(item.sub)}</div>
+          </div>`).join("")}
         </div>
-      `;
+      </div>`;
+    }
+
+    function tablePanel(title, items, columns){
+      return `<div class="card">
+        <div class="panel-head">${title}</div>
+        <div class="list">
+          <table class="data-table">
+            <thead>
+              <tr>${columns.map(col => `<th>${col.label}</th>`).join("")}</tr>
+            </thead>
+            <tbody>
+              ${items.map(item => `<tr>${columns.map(col => `<td>${safe(item[col.key])}</td>`).join("")}</tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
     }
 
     function render(data){
@@ -171,8 +172,17 @@
           ${stackPanel("Focus This Month", w1.focus || [])}
           ${stackPanel("Recommended Next Moves", w1.nextMoves || [])}
         </div>
-        <div class="wide">
-          ${stackPanel("Final Notes", w1.finalNotes || [])}
+        <div class="grid-2">
+          ${tablePanel("Top Search Terms", w1.topSearchTerms || [], [
+            {key:"term", label:"Search Term"},
+            {key:"clicks", label:"Clicks"},
+            {key:"impressions", label:"Impressions"}
+          ])}
+          ${tablePanel("Top Pages Viewed", w1.topPagesViewed || [], [
+            {key:"page", label:"Page"},
+            {key:"impressions", label:"Impressions"},
+            {key:"clicks", label:"Clicks"}
+          ])}
         </div>
       `;
 
@@ -180,15 +190,11 @@
         ${goalBand(w2.goals || [])}
         ${kpiCards(w2.kpis || [], "Closure Snapshot")}
         <div class="grid-2">
-          ${decisionsPanel(w2.followups || [], "Answers & Follow-Ups")}
-          ${stackPanel("Close-the-Loop Read", w2.focus || [])}
-        </div>
-        <div class="grid-2">
-          ${stackPanel("Next Actions", w2.nextMoves || [])}
-          ${stackPanel("Meeting Outcome", w2.meetingOutcome || [])}
+          ${decisionsPanel(w2.followups || [], "Follow Ups")}
+          ${stackPanel("Completion Status", w2.completionStatus || [])}
         </div>
         <div class="wide">
-          ${stackPanel("Final Notes", w2.finalNotes || [])}
+          ${stackPanel("Next Actions", w2.nextMoves || [])}
         </div>
       `;
     }
