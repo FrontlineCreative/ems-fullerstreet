@@ -226,6 +226,26 @@
       .goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr}
       .insight-row,.decision-row{grid-template-columns:1fr}
     }
+    .back-to-top{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:999;
+  background:#ffffff;
+  color:#6b7280;
+  border:1px solid #ddd7cc;
+  border-radius:999px;
+  padding:10px 14px;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+
+.back-to-top:hover{
+  color:#171717;
+  border-color:#bfb8aa;
+}
   </style>
 </head>
 <body>
@@ -414,5 +434,6 @@
 
     loadDashboardData();
   </script>
+  <a href="#" class="back-to-top">Back to top ↑</a>
 </body>
 </html>
