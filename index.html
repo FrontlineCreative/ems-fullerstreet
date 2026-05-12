@@ -111,14 +111,19 @@ function decisionPanel(items, title){
       </div>`).join("")}
   </div></div>`;
 }
-function stackedPanel(title, items){
-  return `<div class="card"><div class="panel-head">${title}</div><div class="stack">
-    ${items.map(i => `
-      <div class="stack-item">
-        <div class="stack-title">${i.title || ""}</div>
-        <div class="stack-sub">${i.sub || ""}</div>
-      </div>`).join("")}
-  </div></div>`;
+function cardStackPanel(title, items){
+  return `<div class="card">
+    <div class="panel-head">${title}</div>
+    <div class="stack">
+      ${items.map(i => `
+        <div class="stack-item">
+          <div class="stack-title">${i.title || ""}</div>
+          <div class="stack-sub">${i.sub || ""}</div>
+        </div>
+      `).join("")}
+    </div>
+  </div>`;
+}
 }
 function render(data){
   const w1 = data.week1 || fallbackData.week1;
@@ -134,8 +139,9 @@ function render(data){
   document.getElementById("week2").innerHTML =
     goalBand(w2.goals || []) +
     kpiCards(w2.kpis || [], "Closure Snapshot") +
-    `<div class="two-col">${decisionPanel(w2.followups || [], "Answers & Follow-Ups")}${stackedPanel("Close-the-Loop Read", w2.focus || []).replace('<div class="card">','').replace('</div>','')}</div>` +
-    `<div class="three-col">${stackedPanel("Next Actions", w2.nextMoves || [])}${stackedPanel("Meeting Outcome", w2.meetingOutcome || [])}${stackedPanel("Final Notes", w2.finalNotes || [])}</div>`;
+    `<div class="two-col">${decisionPanel(w2.followups || [], "Answers & Follow-Ups")}${cardStackPanel("Close-the-Loop Read", w2.focus || [])}</div>` +
+    `<div class="two-col equal">${cardStackPanel("Next Actions", w2.nextMoves || [])}${cardStackPanel("Meeting Outcome", w2.meetingOutcome || [])}</div>` +
+    `<div class="two-col equal">${cardStackPanel("Final Notes", w2.finalNotes || [])}<div></div></div>`;
 }
 async function loadDashboardData(){
   try {
