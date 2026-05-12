@@ -6,18 +6,17 @@
 <title>Executive Dashboard Live</title>
 <style>
   :root{
-    /* Change this hex to update the client/brand color */
     --bg:#f6f4ef; --panel:#fff; --line:#ddd7cc; --text:#171717; --muted:#6b7280;
     --gold1:#f3ead0; --gold2:#ecdfb6; --goldBorder:#d8c694; --shadow:0 8px 24px rgba(0,0,0,.05);
-    --radius:18px;
-    --brand:#f15a24;
+    --radius:18px; --brand:#f15a24;
   }
-  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
   .wrap{max-width:1380px;margin:0 auto;padding:28px}
   .hero{margin-bottom:18px}
   .brand{font-size:42px;line-height:1;font-weight:900;letter-spacing:-0.03em;margin:0 0 8px;color:var(--brand)}
   .subtitle{font-size:18px;color:#6b7280;font-weight:600;margin:0}
-  .topbar{display:flex;gap:14px;margin-bottom:16px}
+  .topbar{display:flex;gap:14px;margin:16px 0}
   .tab{border:1px solid var(--line);background:#fff;color:#6b7280;border-radius:16px;padding:14px 22px;font-size:18px;font-weight:700;cursor:pointer}
   .tab.active{background:#151515;color:#fff;border-color:#151515}
   .screen{display:none}.screen.active{display:block}
@@ -35,6 +34,7 @@
   .kpi .note{margin-top:6px;color:var(--muted);font-size:14px}
   .two-col{display:grid;grid-template-columns:1.2fr .95fr;gap:20px;margin-bottom:20px}
   .equal{grid-template-columns:1fr 1fr}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:20px}
   .panel-head{padding:18px 20px 8px;font-size:18px;font-weight:800}
   .list{padding:0 14px 14px}
   .row{display:grid;align-items:center;gap:14px;padding:16px 10px;border-top:1px solid #ece6dc}
@@ -46,37 +46,29 @@
   .stack-title{font-size:15px;font-weight:800;margin-bottom:4px}
   .stack-sub{font-size:14px;color:var(--muted)}
   .chip{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:900;min-width:86px;background:#fbf1df;color:#9a6700}
-    @media (max-width:1100px){.goal-band,.kpi-grid,.two-col{grid-template-columns:1fr 1fr}}
-  @media (max-width:800px){.goal-band,.kpi-grid,.two-col{grid-template-columns:1fr}}
+  @media (max-width:1100px){.goal-band,.kpi-grid,.two-col,.three-col{grid-template-columns:1fr 1fr}}
+  @media (max-width:800px){.goal-band,.kpi-grid,.two-col,.three-col{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hero">
     <h1 class="brand">Fuller Street</h1>
-    <p class="subtitle">Marketing Performance Summary — May 2026</p>
+    <p class="subtitle">Monthly Executive Performance Summary — May 2026</p>
   </div>
   <div class="topbar">
-    <button class="tab active" data-target="week1">Week 1 — Executive Summary</button>
-    <button class="tab" data-target="week2">Week 2 — Close the Loops</button>
+    <button class="tab active" data-target="week1">Meeting 1 — Executive Summary</button>
+    <button class="tab" data-target="week2">Meeting 2 — Action Item Follow Ups</button>
   </div>
   <section class="screen active" id="week1"></section>
   <section class="screen" id="week2"></section>
-  
-
-  <div class="card" style="margin-top:20px;padding:18px 20px;">
-    <div class="panel-head" style="padding:0 0 10px;">Final Notes</div>
-    <div class="stack-sub">Use this area for final approvals, reminders, or meeting wrap-up notes.</div>
-  </div>
-
 </div>
 
 <script>
 const SHEET_FEED_URL = "https://script.google.com/macros/s/AKfycbyrE1aozXuuUYnUJQBSyGSvLJo-_S3Ib5kk1xMSQRbTLKtBrdnOCAxm77o72vupzc5sQA/exec";
-
 const fallbackData = {
-  week1: {goals:[],kpis:[],insights:[],decisions:[],focus:[],nextMoves:[]},
-  week2: {goals:[],kpis:[],followups:[],focus:[],nextMoves:[]}
+  week1: {goals:[],kpis:[],insights:[],decisions:[],focus:[],nextMoves:[],finalNotes:[]},
+  week2: {goals:[],kpis:[],followups:[],focus:[],nextMoves:[],meetingOutcome:[],finalNotes:[]}
 };
 
 function goalBand(items){
@@ -136,13 +128,14 @@ function render(data){
     goalBand(w1.goals || []) +
     kpiCards(w1.kpis || [], "Performance Snapshot") +
     `<div class="two-col">${insightsPanel(w1.insights || [])}${decisionPanel(w1.decisions || [], "Decisions Needed")}</div>` +
-    `<div class="two-col equal">${stackedPanel("Focus This Month", w1.focus || [])}${stackedPanel("Recommended Next Moves", w1.nextMoves || [])}</div>`;
+    `<div class="two-col equal">${stackedPanel("Focus This Month", w1.focus || [])}${stackedPanel("Recommended Next Moves", w1.nextMoves || [])}</div>` +
+    `<div class="card" style="margin-bottom:20px;">${stackedPanel("Final Notes", w1.finalNotes || []).replace('<div class="card">','').replace('</div>','')}</div>`;
 
   document.getElementById("week2").innerHTML =
     goalBand(w2.goals || []) +
     kpiCards(w2.kpis || [], "Closure Snapshot") +
-    `<div class="two-col">${decisionPanel(w2.followups || [], "Answers & Follow-Ups")}${stackedPanel("Close-the-Loop Read", w2.focus || [])}</div>` +
-    `<div class="two-col equal">${stackedPanel("Next Actions", w2.nextMoves || [])}${stackedPanel("Meeting Outcome", [])}</div>`;
+    `<div class="two-col">${decisionPanel(w2.followups || [], "Answers & Follow-Ups")}${stackedPanel("Close-the-Loop Read", w2.focus || []).replace('<div class="card">','').replace('</div>','')}</div>` +
+    `<div class="three-col">${stackedPanel("Next Actions", w2.nextMoves || [])}${stackedPanel("Meeting Outcome", w2.meetingOutcome || [])}${stackedPanel("Final Notes", w2.finalNotes || [])}</div>`;
 }
 async function loadDashboardData(){
   try {
