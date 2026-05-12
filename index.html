@@ -69,7 +69,7 @@
     </div>
     <div class="tabs">
       <button class="tab active" data-target="week1">Week 1 — Executive Summary</button>
-      <button class="tab" data-target="week2">Week 2 — Close the Loops</button>
+      <button class="tab" data-target="week2">Week 2 — Action Items Follow Ups</button>
     </div>
     <section class="screen active" id="week1"></section>
     <section class="screen" id="week2"></section>
@@ -162,29 +162,29 @@
       const w2 = data.week2 || {};
 
       document.getElementById("week1").innerHTML = `
-        ${goalBand(w1.goals || [])}
-        ${kpiCards(w1.kpis || [], "Performance Snapshot")}
-        <div class="grid-2">
-          ${insightsPanel(w1.insights || [])}
-          ${decisionsPanel(w1.decisions || [], "Decisions Needed")}
-        </div>
-        <div class="grid-2">
-          ${stackPanel("Focus This Month", w1.focus || [])}
-          ${stackPanel("Recommended Next Moves", w1.nextMoves || [])}
-        </div>
-        <div class="grid-2">
-          ${tablePanel("Top Search Terms", w1.topSearchTerms || [], [
-            {key:"term", label:"Search Term"},
-            {key:"clicks", label:"Clicks"},
-            {key:"impressions", label:"Impressions"}
-          ])}
-          ${tablePanel("Top Pages Viewed", w1.topPagesViewed || [], [
-            {key:"page", label:"Page"},
-            {key:"impressions", label:"Impressions"},
-            {key:"clicks", label:"Clicks"}
-          ])}
-        </div>
-      `;
+  ${goalBand(w1.goals || [])}
+  ${kpiCards(w1.kpis || [], "Performance Snapshot")}
+  <div class="grid-2">
+    ${tablePanel("Top Search Terms", w1.topSearchTerms || [], [
+      {key:"term", label:"Search Term"},
+      {key:"clicks", label:"Clicks"},
+      {key:"impressions", label:"Impressions"}
+    ])}
+    ${tablePanel("Top Pages Viewed", w1.topPagesViewed || [], [
+      {key:"page", label:"Page"},
+      {key:"impressions", label:"Impressions"},
+      {key:"clicks", label:"Clicks"}
+    ])}
+  </div>
+  <div class="grid-2">
+    ${insightsPanel(w1.insights || [])}
+    ${decisionsPanel(w1.decisions || [], "Decisions Needed")}
+  </div>
+  <div class="grid-2">
+    ${stackPanel("Focus This Month", w1.focus || [])}
+    ${stackPanel("Recommended Next Moves", w1.nextMoves || [])}
+  </div>
+`;
 
       document.getElementById("week2").innerHTML = `
         ${goalBand(w2.goals || [])}
