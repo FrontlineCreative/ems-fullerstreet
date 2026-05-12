@@ -6,12 +6,17 @@
 <title>Executive Dashboard Live</title>
 <style>
   :root{
+    /* Change this hex to update the client/brand color */
     --bg:#f6f4ef; --panel:#fff; --line:#ddd7cc; --text:#171717; --muted:#6b7280;
     --gold1:#f3ead0; --gold2:#ecdfb6; --goldBorder:#d8c694; --shadow:0 8px 24px rgba(0,0,0,.05);
     --radius:18px;
+    --brand:#f15a24;
   }
   *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
   .wrap{max-width:1380px;margin:0 auto;padding:28px}
+  .hero{margin-bottom:18px}
+  .brand{font-size:42px;line-height:1;font-weight:900;letter-spacing:-0.03em;margin:0 0 8px;color:var(--brand)}
+  .subtitle{font-size:18px;color:#6b7280;font-weight:600;margin:0}
   .topbar{display:flex;gap:14px;margin-bottom:16px}
   .tab{border:1px solid var(--line);background:#fff;color:#6b7280;border-radius:16px;padding:14px 22px;font-size:18px;font-weight:700;cursor:pointer}
   .tab.active{background:#151515;color:#fff;border-color:#151515}
@@ -41,20 +46,29 @@
   .stack-title{font-size:15px;font-weight:800;margin-bottom:4px}
   .stack-sub{font-size:14px;color:var(--muted)}
   .chip{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:900;min-width:86px;background:#fbf1df;color:#9a6700}
-  .footer{margin-top:18px;background:#111;color:#f3f4f6;border-radius:16px;padding:16px 18px;font-size:13px;line-height:1.55}
-  @media (max-width:1100px){.goal-band,.kpi-grid,.two-col{grid-template-columns:1fr 1fr}}
+    @media (max-width:1100px){.goal-band,.kpi-grid,.two-col{grid-template-columns:1fr 1fr}}
   @media (max-width:800px){.goal-band,.kpi-grid,.two-col{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="hero">
+    <h1 class="brand">Fuller Street</h1>
+    <p class="subtitle">Monthly Executive Performance Summary — May 2026</p>
+  </div>
   <div class="topbar">
     <button class="tab active" data-target="week1">Week 1 — Executive Summary</button>
     <button class="tab" data-target="week2">Week 2 — Close the Loops</button>
   </div>
   <section class="screen active" id="week1"></section>
   <section class="screen" id="week2"></section>
-  <div class="footer">This live version pulls from Google Sheets on refresh.</div>
+  
+
+  <div class="card" style="margin-top:20px;padding:18px 20px;">
+    <div class="panel-head" style="padding:0 0 10px;">Final Notes</div>
+    <div class="stack-sub">Use this area for final approvals, reminders, or meeting wrap-up notes.</div>
+  </div>
+
 </div>
 
 <script>
