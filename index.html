@@ -15,12 +15,17 @@
       --gold-2:#ecdfb6;
       --gold-line:#d8c694;
       --brand:#f15a24;
-      --panel-heading:#2563eb; /* change panel heading color here */
+      --panel-heading:#2563eb;
       --shadow:0 8px 24px rgba(0,0,0,.05);
       --radius:20px;
     }
 
     *{box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
       margin:0;
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -28,8 +33,16 @@
       color:var(--text);
     }
 
-    .wrap{max-width:1440px;margin:0 auto;padding:28px}
-    .hero{margin-bottom:18px}
+    .wrap{
+      max-width:1440px;
+      margin:0 auto;
+      padding:28px;
+    }
+
+    .hero{
+      margin-bottom:18px;
+    }
+
     .brand{
       margin:0 0 8px;
       font-size:44px;
@@ -38,6 +51,7 @@
       letter-spacing:-0.03em;
       color:var(--brand);
     }
+
     .subtitle{
       margin:0;
       font-size:18px;
@@ -45,7 +59,12 @@
       color:var(--muted);
     }
 
-    .tabs{display:flex;gap:14px;margin:20px 0 18px}
+    .tabs{
+      display:flex;
+      gap:14px;
+      margin:20px 0 18px;
+    }
+
     .tab{
       border:1px solid var(--line);
       background:#fff;
@@ -56,14 +75,20 @@
       font-weight:700;
       cursor:pointer;
     }
+
     .tab.active{
       background:#111;
       color:#fff;
       border-color:#111;
     }
 
-    .screen{display:none}
-    .screen.active{display:block}
+    .screen{
+      display:none;
+    }
+
+    .screen.active{
+      display:block;
+    }
 
     .goal-band{
       display:grid;
@@ -128,10 +153,28 @@
       justify-content:space-between;
     }
 
-    .kpi-label{font-size:18px;color:#3f3f46}
-    .kpi-value{font-size:48px;line-height:1;font-weight:900;margin:12px 0}
-    .kpi-sub{font-size:15px;font-weight:800}
-    .kpi-note{margin-top:6px;color:var(--muted);font-size:14px}
+    .kpi-label{
+      font-size:18px;
+      color:#3f3f46;
+    }
+
+    .kpi-value{
+      font-size:48px;
+      line-height:1;
+      font-weight:900;
+      margin:12px 0;
+    }
+
+    .kpi-sub{
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .kpi-note{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:14px;
+    }
 
     .grid-2{
       display:grid;
@@ -147,7 +190,10 @@
       color:var(--panel-heading);
     }
 
-    .list{padding:0 14px 14px}
+    .list{
+      padding:0 14px 14px;
+    }
+
     .row{
       display:grid;
       gap:14px;
@@ -155,10 +201,18 @@
       padding:16px 10px;
       border-top:1px solid #ece6dc;
     }
-    .row:first-child{border-top:none}
 
-    .insight-row{grid-template-columns:110px 1fr}
-    .decision-row{grid-template-columns:1fr auto}
+    .row:first-child{
+      border-top:none;
+    }
+
+    .insight-row{
+      grid-template-columns:110px 1fr;
+    }
+
+    .decision-row{
+      grid-template-columns:1fr auto;
+    }
 
     .chip{
       display:inline-flex;
@@ -209,6 +263,7 @@
       border-top:1px solid #ece6dc;
       text-align:left;
       font-size:14px;
+      vertical-align:top;
     }
 
     table.data-table th{
@@ -216,36 +271,46 @@
       font-weight:800;
     }
 
-    .wide{margin-bottom:20px}
+    .wide{
+      margin-bottom:20px;
+    }
+
+    .back-to-top{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:999;
+      background:#ffffff;
+      color:#6b7280;
+      border:1px solid #ddd7cc;
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+      box-shadow:0 8px 24px rgba(0,0,0,.05);
+    }
+
+    .back-to-top:hover{
+      color:#171717;
+      border-color:#bfb8aa;
+    }
 
     @media (max-width:1100px){
-      .goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr 1fr}
+      .goal-band,.kpi-grid,.grid-2{
+        grid-template-columns:1fr 1fr;
+      }
     }
 
     @media (max-width:780px){
-      .goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr}
-      .insight-row,.decision-row{grid-template-columns:1fr}
-    }
-    .back-to-top{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:999;
-  background:#ffffff;
-  color:#6b7280;
-  border:1px solid #ddd7cc;
-  border-radius:999px;
-  padding:10px 14px;
-  font-size:13px;
-  font-weight:700;
-  text-decoration:none;
-  box-shadow:0 8px 24px rgba(0,0,0,.05);
-}
+      .goal-band,.kpi-grid,.grid-2{
+        grid-template-columns:1fr;
+      }
 
-.back-to-top:hover{
-  color:#171717;
-  border-color:#bfb8aa;
-}
+      .insight-row,.decision-row{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -264,20 +329,26 @@
     <section class="screen" id="week2"></section>
   </div>
 
-  <script>
-    const SHEET_FEED_URL = "https://script.google.com/macros/s/AKfycbyrE1aozXuuUYnUJQBSyGSvLJo-_S3Ib5kk1xMSQRbTLKtBrdnOCAxm77o72vupzc5sQA/exec";
+  <a href="#" class="back-to-top">Back to top ↑</a>
 
-    function safe(v){ return (v ?? "").toString(); }
+  <script>
+    const SHEET_FEED_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    function safe(v){
+      return (v ?? "").toString();
+    }
 
     function goalBand(items){
-      return `<div class="goal-band">
-        ${items.map(item => `
-          <div class="goal-card">
-            <div class="goal-label">${safe(item.label)}</div>
-            <div class="goal-value">${safe(item.value)}</div>
-          </div>
-        `).join("")}
-      </div>`;
+      return `
+        <div class="goal-band">
+          ${items.map(item => `
+            <div class="goal-card">
+              <div class="goal-label">${safe(item.label)}</div>
+              <div class="goal-value">${safe(item.value)}</div>
+            </div>
+          `).join("")}
+        </div>
+      `;
     }
 
     function kpiCards(items, title){
@@ -301,7 +372,7 @@
     function insightsPanel(items){
       return `
         <div class="card">
-          <div class="panel-head">Notes and Insights</div>
+          <div class="panel-head">Insights</div>
           <div class="list">
             ${items.map(item => `
               <div class="row insight-row">
@@ -359,7 +430,29 @@
                 <tr>${columns.map(col => `<th>${col.label}</th>`).join("")}</tr>
               </thead>
               <tbody>
-                ${items.map(item => `<tr>${columns.map(col => `<td>${safe(item[col.key])}</td>`).join("")}</tr>`).join("")}
+                ${items.map(item => `
+                  <tr>${columns.map(col => `<td>${safe(item[col.key])}</td>`).join("")}</tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function fullWidthTablePanel(title, items, columns){
+      return `
+        <div class="card">
+          <div class="panel-head">${title}</div>
+          <div class="list">
+            <table class="data-table">
+              <thead>
+                <tr>${columns.map(col => `<th>${col.label}</th>`).join("")}</tr>
+              </thead>
+              <tbody>
+                ${items.map(item => `
+                  <tr>${columns.map(col => `<td>${safe(item[col.key])}</td>`).join("")}</tr>
+                `).join("")}
               </tbody>
             </table>
           </div>
@@ -372,7 +465,9 @@
       const w1 = data.week1 || {};
       const w2 = data.week2 || {};
 
-      document.getElementById("brandName").textContent = safe(meta.clientName || "Fuller Street");
+      document.getElementById("brandName").textContent =
+        safe(meta.clientName || "Fuller Street");
+
       document.getElementById("reportSubtitle").textContent =
         `${safe(meta.reportSubtitle || "Monthly Executive Performance Summary")} — ${safe(meta.reportPeriod || "")}`.replace(/ — $/, "");
 
@@ -387,8 +482,17 @@
           ])}
           ${tablePanel("Top Pages Viewed", w1.topPagesViewed || [], [
             {key:"page", label:"Page"},
-            {key:"impressions", label:"Impressions"},
-            {key:"clicks", label:"Clicks"}
+            {key:"clicks", label:"Clicks"},
+            {key:"impressions", label:"Impressions"}
+          ])}
+        </div>
+        <div class="wide">
+          ${fullWidthTablePanel("SEO Competitor Comparison", w1.seoCompetitorComparison || [], [
+            {key:"company", label:"Company"},
+            {key:"totalKeywords", label:"Total Keywords"},
+            {key:"organicTraffic", label:"Organic Traffic"},
+            {key:"keywordsTop10", label:"Keywords in Top 10"},
+            {key:"site", label:"Site"}
           ])}
         </div>
         <div class="grid-2">
@@ -397,7 +501,7 @@
         </div>
         <div class="grid-2">
           ${stackPanel("Focus This Month", w1.focus || [])}
-          ${stackPanel("Recommended Next Moves", w1.nextMoves || [])}
+          ${stackPanel("Recommendations", w1.nextMoves || [])}
         </div>
       `;
 
@@ -434,6 +538,5 @@
 
     loadDashboardData();
   </script>
-  <a href="#" class="back-to-top">Back to top ↑</a>
 </body>
 </html>
