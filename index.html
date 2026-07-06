@@ -14,8 +14,8 @@
   --gold-1:#f3ead0;
   --gold-2:#ecdfb6;
   --gold-line:#d8c694;
-  --brand:#f15a24; /* client name color */
-  --panel-heading:#2563eb; /* panel heading color */
+  --brand:#f15a24;
+  --panel-heading:#2563eb;
   --shadow:0 8px 24px rgba(0,0,0,.05);
   --radius:20px;
   --socials-bg:#ffd700;
@@ -35,7 +35,12 @@ body.socials-mode{
   background:var(--socials-bg);
 }
 
-.wrap{max-width:1440px;margin:0 auto;padding:28px}
+.wrap{
+  max-width:1440px;
+  margin:0 auto;
+  padding:28px;
+}
+
 .hero{margin-bottom:18px}
 
 .brand{
@@ -54,7 +59,11 @@ body.socials-mode{
   color:var(--muted);
 }
 
-.tabs{display:flex;gap:14px;margin:20px 0 18px}
+.tabs{
+  display:flex;
+  gap:14px;
+  margin:20px 0 18px;
+}
 
 .tab{
   border:1px solid var(--line);
@@ -67,7 +76,11 @@ body.socials-mode{
   cursor:pointer;
 }
 
-.tab.active{background:#111;color:#fff;border-color:#111}
+.tab.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
 
 .screen{display:none}
 .screen.active{display:block}
@@ -135,10 +148,28 @@ body.socials-mode{
   justify-content:space-between;
 }
 
-.kpi-label{font-size:18px;color:#3f3f46}
-.kpi-value{font-size:48px;line-height:1;font-weight:900;margin:12px 0}
-.kpi-sub{font-size:15px;font-weight:800}
-.kpi-note{margin-top:6px;color:var(--muted);font-size:14px}
+.kpi-label{
+  font-size:18px;
+  color:#3f3f46;
+}
+
+.kpi-value{
+  font-size:48px;
+  line-height:1;
+  font-weight:900;
+  margin:12px 0;
+}
+
+.kpi-sub{
+  font-size:15px;
+  font-weight:800;
+}
+
+.kpi-note{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:14px;
+}
 
 .grid-2{
   display:grid;
@@ -167,6 +198,7 @@ body.socials-mode{
 }
 
 .row:first-child{border-top:none}
+
 .insight-row{grid-template-columns:110px 1fr}
 .decision-row{grid-template-columns:1fr auto}
 
@@ -256,7 +288,10 @@ table.data-table th{
   box-shadow:0 8px 24px rgba(0,0,0,.05);
 }
 
-.back-to-top:hover{color:#171717;border-color:#bfb8aa}
+.back-to-top:hover{
+  color:#171717;
+  border-color:#bfb8aa;
+}
 
 @media (max-width:1100px){
   .goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr 1fr}
