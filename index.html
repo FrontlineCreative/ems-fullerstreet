@@ -18,6 +18,7 @@
   --panel-heading:#2563eb; /* panel heading color */
   --shadow:0 8px 24px rgba(0,0,0,.05);
   --radius:20px;
+  --socials-bg:#f5f9ff;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -222,6 +223,11 @@ table.data-table th{
 @media (max-width:780px){
   .goal-band,.kpi-grid,.grid-2{grid-template-columns:1fr}
   .insight-row,.decision-row{grid-template-columns:1fr}
+}
+  #socials.active{
+  background:var(--socials-bg);
+  border-radius:20px;
+  padding:12px;
 }
 </style>
 </head>
