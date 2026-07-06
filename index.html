@@ -229,6 +229,9 @@ table.data-table th{
   border-radius:20px;
   padding:12px;
 }
+  body.socials-mode{
+  background:var(--socials-bg);
+}
 </style>
 </head>
 <body>
@@ -366,7 +369,7 @@ function render(data){
   const socials = data.socials || {};
   const action = data.action || {};
 
-  document.getElementById("brandName").textContent = safe(meta.clientName || "Fuller Street");
+  .getElementById("brandName").textContent = safe(meta.clientName || "Fuller Street");
   document.getElementById("reportSubtitle").textContent =
     `${safe(meta.reportSubtitle || "Monthly Executive Performance Summary")} — ${safe(meta.reportPeriod || "")}`.replace(/ — $/, "");
 
@@ -462,8 +465,17 @@ document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+
     tab.classList.add("active");
     document.getElementById(tab.dataset.target).classList.add("active");
+
+    document.body.classList.remove("socials-mode");
+
+    if (tab.dataset.target === "socials") {
+      document.body.classList.add("socials-mode");
+    }
+  });
+});
   });
 });
 
