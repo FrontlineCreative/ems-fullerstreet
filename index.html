@@ -328,6 +328,21 @@ const SHEET_FEED_URL = "https://script.google.com/macros/s/AKfycby0SLzAYq0qJNEBr
 
 const safe = v => (v ?? "").toString();
 
+function formatNumber(value){
+  const str = safe(value).trim();
+
+  if (str === "" || str === "-") return str;
+  if (str.includes("%")) return str;
+  if (/[a-zA-Z]/.test(str)) return str;
+
+  const normalized = str.replace(/,/g, "");
+  const num = Number(normalized);
+
+  if (Number.isNaN(num)) return str;
+
+  return num.toLocaleString("en-US");
+}  
+  
 function goalBand(items){
   return `<div class="goal-band">
     ${items.map(item => `
@@ -345,7 +360,7 @@ function kpiCards(items, title){
       ${items.map(item => `
         <div class="card kpi">
           <div class="kpi-label">${safe(item.label)}</div>
-          <div class="kpi-value">${safe(item.value)}</div>
+          <div class="kpi-value">${formatNumber(item.value)}</div>
           <div>
             <div class="kpi-sub">${safe(item.sub)}</div>
             <div class="kpi-note">${safe(item.note)}</div>
@@ -410,7 +425,7 @@ function tablePanel(title, items, columns){
         </thead>
         <tbody>
           ${items.map(item => `
-            <tr>${columns.map(col => `<td>${safe(item[col.key])}</td>`).join("")}</tr>
+            <tr>${columns.map(col => `<td>${formatNumber(item[col.key])}</td>`).join("")}</tr>
           `).join("")}
         </tbody>
       </table>
